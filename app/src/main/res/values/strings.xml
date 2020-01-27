@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Orders of Magnitude</string>
+    <string name="step1msg">Each bubble represents an action. Its area is proportional to the amount of CO2 given off by performing it.</string>
+    <string name="step0msg">How do various CO2-emitting actions compare, in terms of how much CO2 is given off?</string>
+    <string name="tapToContinue">Tap the screen to continue...</string>
+    <string name="step2msg">Watch how different actions compare...</string>
+</resources>
