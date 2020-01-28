@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <color name="color0">#d50000</color>
+    <color name="color1">#aa00ff</color>
+    <color name="color2">#304ffe</color>
+    <color name="color3">#00bfa5</color>
+    <color name="color4">#aeea00</color>
+    <color name="color5">#ffab00</color>
+    <color name="color6">#dd2c00</color>
+
 </resources>

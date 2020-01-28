@@ -15,7 +15,7 @@ public class Disc extends View {
 
     float radius;
     int color;
-    Paint paintbrush;
+    Paint paintbrush = new Paint();
 
     static float SMALL = 50f;
     static float MEDIUM = 150f;
@@ -23,6 +23,7 @@ public class Disc extends View {
 
     public Disc(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
+
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attributeSet,
@@ -42,6 +43,7 @@ public class Disc extends View {
 
     public Disc(Context context, float rad, int col){
         super(context);
+
         setDiscAttributes(col, rad);
 
     }
@@ -55,7 +57,6 @@ public class Disc extends View {
     private void setPaintBrushAttributes() {
 
 
-        paintbrush = new Paint();
         paintbrush.setDither(true);
         paintbrush.setAntiAlias(true);
         paintbrush.setColor(color);
@@ -73,7 +74,8 @@ public class Disc extends View {
     }
 
     public void setColor(int col){
-        color = col;
+        color = col; // color of Disc is redundant TODO remove it
+        paintbrush.setColor(color);
         invalidate();
 //        requestLayout(); // used only when change size or shape
     }
@@ -107,6 +109,10 @@ public class Disc extends View {
         animation.start();
 
 
+    }
+
+    public void resizeByFactor(float factor, float duration){
+        resize(getRadius() * factor, 1000);
     }
 
     public ValueAnimator loopBetweenSizes(float from, float to, float duration){
