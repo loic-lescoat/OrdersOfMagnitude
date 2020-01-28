@@ -4,4 +4,5 @@
     <string name="step0msg">How do various CO2-emitting actions compare, in terms of how much CO2 is given off?</string>
     <string name="tapToContinue">Tap the screen to continue...</string>
     <string name="step2msg">Watch how different actions compare...</string>
+    <string name="moral">It\'s easy to forget how some actions give off a lot more CO2 than others... It\'s no good turning off the water every time you brush your teeth, if it clears your conscience enough to buy a plane ticket!</string>
 </resources>

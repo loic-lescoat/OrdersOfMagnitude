@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/transparent_square" />
 
     <TextView
         android:id="@+id/name"
@@ -38,22 +38,23 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.example.ordersofmagnitude.Disc
-        android:id="@+id/disc2"
+        android:id="@+id/disc0"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:color="#EC62CF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:radius="200" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:onClick="fabClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_arrow_forward" />

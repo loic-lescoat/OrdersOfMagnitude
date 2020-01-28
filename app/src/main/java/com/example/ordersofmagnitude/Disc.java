@@ -90,7 +90,8 @@ public class Disc extends View {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, paintbrush);
     }
 
-    public void resize(float from, float to, float duration){
+    public void resize(float to, float duration){
+        float from = getRadius();
         ValueAnimator animation = ValueAnimator.ofFloat(from, to);
         animation.setDuration((long) duration);
 

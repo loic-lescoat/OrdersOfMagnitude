@@ -7,7 +7,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class IntroActivity extends AppCompatActivity {
 
         textView0 = findViewById(R.id.textView0);
 
-        disc0.resize(0f, Disc.MEDIUM, TRANSITION_DURATION_MEDIUM);
+        disc0.resize(Disc.MEDIUM, TRANSITION_DURATION_MEDIUM);
 
     }
 
@@ -49,7 +48,7 @@ public class IntroActivity extends AppCompatActivity {
                 break;
             case 1: // end of step 1
                 disc0Animation.cancel();
-                disc0.resize(disc0.getRadius(), Disc.LARGE, TRANSITION_DURATION_MEDIUM);
+                disc0.resize(Disc.LARGE, TRANSITION_DURATION_MEDIUM);
                 disc1Animation = disc1.loopBetweenSizes(Disc.SMALL, Disc.MEDIUM, TRANSITION_DURATION_MEDIUM);
                 changeTextWithAlpha(textView0, R.string.step2msg);
                 break;
