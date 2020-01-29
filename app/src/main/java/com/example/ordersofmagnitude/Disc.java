@@ -17,9 +17,7 @@ public class Disc extends View {
     int color;
     Paint paintbrush = new Paint();
 
-    static float SMALL = 50f;
-    static float MEDIUM = 150f;
-    static float LARGE = 300f;
+
 
     public Disc(Context context, AttributeSet attributeSet){
         super(context, attributeSet);

@@ -21,8 +21,7 @@ public class IntroActivity extends AppCompatActivity {
     ValueAnimator disc0Animation;
     ValueAnimator disc1Animation;
 
-    int TRANSITION_DURATION_MEDIUM = 1000;
-    int TRANSITION_DURATION_SHORT = 250;
+
 
 
     @Override
@@ -35,7 +34,7 @@ public class IntroActivity extends AppCompatActivity {
 
         textView0 = findViewById(R.id.textView0);
 
-        disc0.resize(Disc.MEDIUM, TRANSITION_DURATION_MEDIUM);
+        disc0.resize(Constants.DISC_MEDIUM, Constants.TRANSITION_DURATION_MEDIUM);
 
     }
 
@@ -44,12 +43,12 @@ public class IntroActivity extends AppCompatActivity {
             case 0: // end of step 0, on to step 1
 //                textView0.setText(R.string.step1msg);
                 changeTextWithAlpha(textView0, R.string.step1msg);
-                disc0Animation = disc0.loopBetweenSizes(disc0.getRadius(), Disc.LARGE, TRANSITION_DURATION_MEDIUM);
+                disc0Animation = disc0.loopBetweenSizes(disc0.getRadius(), Constants.DISC_LARGE, Constants.TRANSITION_DURATION_MEDIUM);
                 break;
             case 1: // end of step 1
                 disc0Animation.cancel();
-                disc0.resize(Disc.LARGE, TRANSITION_DURATION_MEDIUM);
-                disc1Animation = disc1.loopBetweenSizes(Disc.SMALL, Disc.MEDIUM, TRANSITION_DURATION_MEDIUM);
+                disc0.resize(Constants.DISC_LARGE, Constants.TRANSITION_DURATION_MEDIUM);
+                disc1Animation = disc1.loopBetweenSizes(Constants.DISC_SMALL, Constants.DISC_MEDIUM, Constants.TRANSITION_DURATION_MEDIUM);
                 changeTextWithAlpha(textView0, R.string.step2msg);
                 break;
             default:
@@ -64,7 +63,7 @@ public class IntroActivity extends AppCompatActivity {
 
     public void changeTextWithAlpha(final TextView textView, final int newTextId){
         ValueAnimator animation = ValueAnimator.ofFloat(1f, 0f);
-        animation.setDuration((long) TRANSITION_DURATION_SHORT);
+        animation.setDuration((long) Constants.TRANSITION_DURATION_SHORT);
 
         animation.setRepeatMode(ValueAnimator.REVERSE);
         animation.setRepeatCount(1);

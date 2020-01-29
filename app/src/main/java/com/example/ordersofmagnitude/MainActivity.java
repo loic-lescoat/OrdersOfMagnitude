@@ -1,11 +1,10 @@
 package com.example.ordersofmagnitude;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -32,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     boolean isFirstDisc;
     ActionsList actionsList;
     Action newAction;
-    int[] COLORS_LIST = new int[] {Color.MAGENTA, Color.RED,Color.GREEN, Color.CYAN, Color.BLUE}; // TODO get colors from resource file
-    Vector<Disc> onscreenDiscs= new Vector<>();
+
+    int[] COLORS;
+
+    Vector<Disc> visibleDiscs = new Vector<>();
     int numberOfAction = -1;
 
 
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         disc = findViewById(R.id.disc0);
         fab = findViewById(R.id.fab);
 
+        COLORS = new int[] {getColor(R.color.color0), getColor(R.color.color1),
+                getColor(R.color.color2), getColor(R.color.color3),
+                getColor(R.color.color4), getColor(R.color.color5),
+                getColor(R.color.color6)}; // TODO get colors from resource file instead of hardcode
 
 
         InputStreamReader isr = new InputStreamReader(getResources().openRawResource(R.raw.actions));
@@ -91,12 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable newImage = getDrawable(getResources().getIdentifier("@drawable/" + newAction.getImage(), null, getPackageName()));
 
-        imageView.setImageDrawable(newImage);
+        setNextImage(newImage);
         name.setText(newAction.getName());
         description.setText(newAction.getDescription());
 
 
-        // TODO: add Disc, resize all
         // TODO: add Discs programatically; code below raises error right after drawing them
 //        Disc newDisc = new Disc(this, 200f, Color.BLUE);
 //        ConstraintLayout myLayout = (ConstraintLayout) findViewById(R.id.myLayout);
@@ -107,26 +111,53 @@ public class MainActivity extends AppCompatActivity {
         Disc discToAdd = findViewById(getResources().getIdentifier("disc" + Integer.toString(numberOfAction),
                 "id", getPackageName()));
         discToAdd.setZ((-1f) * numberOfAction);
-        discToAdd.setColor(COLORS_LIST[numberOfAction % COLORS_LIST.length]);
-        onscreenDiscs.add(discToAdd);
+        discToAdd.setColor(COLORS[numberOfAction % COLORS.length]);
+        visibleDiscs.add(discToAdd);
 
-        discToAdd.resize(oldScaleFactor*newAction.getCo2Equivalent(), 1000);
+        float radiusOfBiggestDiscOnscreen;
+        if (numberOfAction == 0){
+            radiusOfBiggestDiscOnscreen = 0f;
+        } else{
+            radiusOfBiggestDiscOnscreen = ((Disc) findViewById(getResources().getIdentifier("disc" + Integer.toString(numberOfAction - 1),
+                    "id", getPackageName()))).getRadius();
+        }
 
-        handler.postDelayed(runnable, 1200); // wait 1s; resize to scalefactor * co2eq
+        discToAdd.setRadius(radiusOfBiggestDiscOnscreen);
+        
+        discToAdd.resize(oldScaleFactor*newAction.getCo2Equivalent(), Constants.TRANSITION_DURATION_MEDIUM);
+
+        handler.postDelayed(runnable, Constants.TRANSITION_DURATION_MEDIUM); // wait 1s; resize to scalefactor * co2eq
+    }
+
+    private void setNextImage(Drawable newImage) {
+        Drawable oldImage = imageView.getDrawable();
+        Drawable[] drawables = new Drawable[]{oldImage, newImage};
+        TransitionDrawable transitionDrawable = new TransitionDrawable(drawables);
+        imageView.setImageDrawable(transitionDrawable);
+        transitionDrawable.startTransition(Constants.TRANSITION_DURATION_SHORT);
     }
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
             // TODO: resize all discs
-            Iterator<Disc> onscreenDiscsIterator = onscreenDiscs.iterator();
+            Iterator<Disc> onscreenDiscsIterator = visibleDiscs.iterator();
             while (onscreenDiscsIterator.hasNext()){
                 Disc d = onscreenDiscsIterator.next();
-                d.resizeByFactor(scaleFactor / oldScaleFactor, 1000);
+                d.resizeByFactor(scaleFactor / oldScaleFactor, Constants.TRANSITION_DURATION_MEDIUM);
             }
 
         }
     };
+
+    public Disc getLastDiscOnscreen(){
+        Iterator<Disc> visibleDiscsIterator = visibleDiscs.iterator();
+        Disc d = visibleDiscsIterator.next(); // assumes at least one disc visible
+        while (visibleDiscsIterator.hasNext()){
+            d = visibleDiscsIterator.next();
+        }
+        return d;
+    }
 
 
 }
