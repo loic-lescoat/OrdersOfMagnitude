@@ -37,4 +37,11 @@ public class Action implements Serializable {
     public String getReference(){
         return reference;
     }
+
+    public float getRadiusEquivalent(){
+        // used to get radius of Disc representing action
+        // as its surface area is proportional to co2Equivalent
+        return (float) Math.sqrt(co2Equivalent);
+
+    }
 }

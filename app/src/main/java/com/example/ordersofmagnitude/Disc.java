@@ -71,6 +71,8 @@ public class Disc extends View {
         return radius;
     }
 
+
+
     public void setColor(int col){
         color = col; // color of Disc is redundant TODO remove it
         paintbrush.setColor(color);

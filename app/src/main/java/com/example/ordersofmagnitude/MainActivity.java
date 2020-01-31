@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (actionsIterator.hasNext()){
             // first action
-            scaleFactor = targetSizeForFirstDisc / actionsList.getAction(0).getCo2Equivalent();
+            scaleFactor = targetSizeForFirstDisc / actionsList.getAction(0).getRadiusEquivalent();
             oldScaleFactor = scaleFactor;
             displayNextAction();
         } else{
@@ -89,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
         numberOfAction++;
         newAction = actionsIterator.next();
 
-        if (scaleFactor * newAction.getCo2Equivalent() > maxSize){
+        if (scaleFactor * newAction.getRadiusEquivalent() > maxSize){
             oldScaleFactor = scaleFactor;
-            scaleFactor = maxSize / newAction.getCo2Equivalent();
+            scaleFactor = maxSize / newAction.getRadiusEquivalent();
         }
 
         Drawable newImage = getDrawable(getResources().getIdentifier("@drawable/" + newAction.getImage(), null, getPackageName()));
 
         setNextImage(newImage);
-        name.setText(newAction.getName());
-        description.setText(newAction.getDescription());
+        ConstantsAndHelpers.changeTextWithAlpha(name, newAction.getName());
+        ConstantsAndHelpers.changeTextWithAlpha(description, newAction.getDescription());
 
 
         // TODO: add Discs programatically; code below raises error right after drawing them
@@ -124,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
         discToAdd.setRadius(radiusOfBiggestDiscOnscreen);
         
-        discToAdd.resize(oldScaleFactor*newAction.getCo2Equivalent(), Constants.TRANSITION_DURATION_MEDIUM);
+        discToAdd.resize(oldScaleFactor*newAction.getRadiusEquivalent(), ConstantsAndHelpers.TRANSITION_DURATION_MEDIUM);
 
-        handler.postDelayed(runnable, Constants.TRANSITION_DURATION_MEDIUM); // wait 1s; resize to scalefactor * co2eq
+        handler.postDelayed(runnable, ConstantsAndHelpers.TRANSITION_DURATION_MEDIUM); // wait 1s; resize
     }
 
     private void setNextImage(Drawable newImage) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         Drawable[] drawables = new Drawable[]{oldImage, newImage};
         TransitionDrawable transitionDrawable = new TransitionDrawable(drawables);
         imageView.setImageDrawable(transitionDrawable);
-        transitionDrawable.startTransition(Constants.TRANSITION_DURATION_SHORT);
+        transitionDrawable.startTransition(ConstantsAndHelpers.TRANSITION_DURATION_SHORT);
     }
 
     Runnable runnable = new Runnable() {
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             Iterator<Disc> onscreenDiscsIterator = visibleDiscs.iterator();
             while (onscreenDiscsIterator.hasNext()){
                 Disc d = onscreenDiscsIterator.next();
-                d.resizeByFactor(scaleFactor / oldScaleFactor, Constants.TRANSITION_DURATION_MEDIUM);
+                d.resizeByFactor(scaleFactor / oldScaleFactor, ConstantsAndHelpers.TRANSITION_DURATION_MEDIUM);
             }
 
         }
