@@ -17,6 +17,9 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Vector;
 
+// TODO: make references visible in the app, and display numerical estimations
+// for CO2 emitted
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
